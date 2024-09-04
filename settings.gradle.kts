@@ -20,5 +20,9 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MatchWave"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
- 
+include(":core")
+include(":features")
+include(":features:auth")
+include(":core:data")
