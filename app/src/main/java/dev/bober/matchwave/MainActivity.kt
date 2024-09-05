@@ -38,7 +38,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, heightDp = 500, widthDp = 250)
 @Composable
 fun GreetingPreview() {
     MatchWaveTheme {
