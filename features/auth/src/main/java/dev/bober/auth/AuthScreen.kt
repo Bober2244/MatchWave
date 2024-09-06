@@ -1,25 +1,23 @@
 package dev.bober.auth
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Button
-import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -28,67 +26,56 @@ fun AuthScreen(
     modifier: Modifier = Modifier,
 
     ) {
+    var text by rememberSaveable { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
-            value = "",
-            onValueChange = {},
+            value = text,
+            onValueChange = { value ->
+                text = value
+            },
             modifier = modifier.padding(8.dp),
             textStyle = MaterialTheme.typography.bodyLarge,
-            label = { Text("Email") }
+            label = { Text("Email") },
+            singleLine = true
         )
         OutlinedTextField(
             value = "",
             onValueChange = {},
             modifier = modifier.padding(8.dp),
             textStyle = MaterialTheme.typography.bodyLarge,
-            label = { Text("Password") }
+            label = { Text("Password") },
+            singleLine = true
         )
         Button(
             onClick = {
-                //TODO:
+
             },
         ) {
-            Text("Submit")
+            Text("Sign")
         }
+        Text(
+            text = "Forgot the password?",
+            color = Color.Blue,
+            modifier = modifier.clickable {
+
+            }
+        )
         Spacer(
             modifier = modifier.height(50.dp)
         )
-        ElevatedButton(
-            onClick = {
-                //TODO:
-            },
-        ) {
-            Icon(
-                imageVector = Icons.Default.Email,
-                contentDescription = "",
-            )
-            Text("Sign in with Google")
-        }
-        ElevatedButton(
-            onClick = {
-                //TODO:
-            },
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "",
-            )
-            Text("Sign in with VK")
-        }
-        ElevatedButton(
-            onClick = {
-                //TODO:
-            },
-        ) {
-            Icon(
-                imageVector = Icons.Default.Build,
-                contentDescription = "",
-            )
-            Text("Sign in with ")
-        }
+        ButtonWithLink(
+            R.drawable.google_icon,
+            R.string.login_with_google,
+            onClick = {}
+        )
+        ButtonWithLink(
+            R.drawable.vk_logo,
+            R.string.login_with_vk,
+            onClick = {}
+        )
     }
 }
 
