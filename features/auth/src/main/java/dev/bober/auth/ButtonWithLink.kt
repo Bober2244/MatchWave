@@ -24,6 +24,7 @@ fun ButtonWithLink(
 ) {
     ElevatedButton(
         onClick = onClick,
+        modifier = modifier
     ) {
         Icon(
             painter = painterResource(icon),
