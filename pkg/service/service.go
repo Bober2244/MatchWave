@@ -1,8 +1,12 @@
 package service
 
-import "MatchWave/pkg/repository"
+import (
+	"MatchWave"
+	"MatchWave/pkg/repository"
+)
 
 type Authorization interface {
+	CreateUser(user MatchWave.User) (int, error)
 }
 
 type Couples interface {
@@ -17,5 +21,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 }
