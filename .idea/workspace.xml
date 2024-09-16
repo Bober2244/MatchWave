@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Поднял базу данных с помощью Postgres">
-      <change afterPath="$PROJECT_DIR$/pkg/handler/response.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/service/auth.go" afterDir="false" />
+    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Сделалю базовую регистрацию">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/handler/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handler/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/repository/postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/repository/postgres.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/repository/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +112,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Базовая структура проекта" />
     <MESSAGE value="Поднял базу данных с помощью Postgres" />
-    <option name="LAST_COMMIT_MESSAGE" value="Поднял базу данных с помощью Postgres" />
+    <MESSAGE value="Сделалю базовую регистрацию" />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделалю базовую регистрацию" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

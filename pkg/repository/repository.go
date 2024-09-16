@@ -7,6 +7,7 @@ import (
 
 type Authorization interface {
 	CreateUser(user MatchWave.User) (int, error)
+	GetUser(email, password string) (MatchWave.User, error)
 }
 
 type Couples interface {

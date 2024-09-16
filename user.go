@@ -1,7 +1,7 @@
 package MatchWave
 
 type User struct {
-	Id          int    `json:"id"`
+	Id          int    `json:"id" db:"id"`
 	Email       string `json:"email" binding:"required"`
 	Name        string `json:"username" binding:"required"`
 	Password    string `json:"password" binding:"required"`
