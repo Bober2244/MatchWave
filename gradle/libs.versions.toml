@@ -1,7 +1,8 @@
 [versions]
-compileSdk = "34"
-targetSdk = "34"
+compileSdk = "35"
+targetSdk = "35"
 minSdk = "24"
+retrofit = "2.11.0"
 coil = "2.7.0"
 leakcanary = "2.14"
 koin = "4.0.0-RC1"
@@ -22,6 +23,7 @@ runtimeAndroid = "1.7.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -43,6 +45,7 @@ leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", ve
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
