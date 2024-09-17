@@ -17,7 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val authModule = module {
 
-    includes(apiModule)
 
     viewModel { AuthScreenViewModel(get(), get()) }
 
@@ -48,4 +47,4 @@ val apiModule = module {
 
 }
 
-private const val BASE_URL = "localhost:8000/auth"
+private const val BASE_URL = "http://10.0.2.2:8000/"

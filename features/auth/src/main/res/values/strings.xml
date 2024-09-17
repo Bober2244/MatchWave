@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="login_with_google">Войти с Google</string>
-    <string name="login_with_vk">Войти с VK</string>
+    <string name="login_with_google">Авторизоваться с Google</string>
+    <string name="login_with_vk">Авторизоваться с VK</string>
     <string name="forgot_password_text">Забыли пароль?</string>
     <string name="email_hint_text">Email</string>
     <string name="password_hint_text">Пароль</string>

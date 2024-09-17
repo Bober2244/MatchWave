@@ -7,20 +7,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,12 +24,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.bober.auth.R
+import dev.bober.auth.presentation.core.EmailOutlinedTextField
+import dev.bober.auth.presentation.core.PasswordOutlinedTextField
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -54,59 +45,14 @@ fun AuthScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxSize(),
     ) {
-        OutlinedTextField(
-            value = emailText,
-            onValueChange = { email ->
-                emailText = email
-            },
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyLarge,
-            label = { Text(text = stringResource(R.string.email_hint_text)) },
-            singleLine = true,
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Email,
-                    contentDescription = null,
-                )
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        EmailOutlinedTextField(
+            email = emailText,
         )
-        var passwordVisibility by rememberSaveable { mutableStateOf(false) }
 
-        OutlinedTextField(
-            value = passwordText,
-            onValueChange = { password ->
-                passwordText = password
-            },
-            modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyLarge,
-            label = { Text(text = stringResource(R.string.password_hint_text)) },
-            singleLine = true,
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = null,
-                )
-            },
-            visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-            trailingIcon = {
-                val image =
-                    if (passwordVisibility) painterResource(R.drawable.visibility_off_24px)
-                    else painterResource(R.drawable.visibility_24px)
-                IconButton(
-                    onClick = { passwordVisibility = !passwordVisibility }
-                ) {
-                    Icon(
-                        painter = image,
-                        contentDescription = null
-                    )
-                }
-            }
+        PasswordOutlinedTextField(
+            password = passwordText,
         )
+
         Button(
             onClick = {
                 //TODO: Надо еще доделать логику
@@ -137,6 +83,13 @@ fun AuthScreen(
         ButtonWithLink(
             R.drawable.ic_vk,
             R.string.login_with_vk,
+            onClick = {
+                //TODO:
+            }
+        )
+        ButtonWithLink(
+            R.drawable.visibility_24px,
+            R.string.sign_up_button_text,
             onClick = {
                 //TODO:
             }
