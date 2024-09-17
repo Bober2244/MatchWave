@@ -8,6 +8,7 @@ import (
 type Authorization interface {
 	CreateUser(user MatchWave.User) (int, error)
 	GetUser(email, password string) (MatchWave.User, error)
+	ExistsUserByEmail(email string) (bool, error)
 	GetUserByVerificationCode(code string) (MatchWave.User, error)
 	UpdateUserVerificationStatus(userId int, isVerified bool) error
 	ClearVerificationCode(userId int) error

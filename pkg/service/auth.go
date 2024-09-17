@@ -34,7 +34,16 @@ func NewAuthService(repo repository.Authorization) *AuthService {
 }
 
 func (s *AuthService) CreateUser(user MatchWave.User) (int, error) {
-	_, err := time.Parse("2006-01-02", user.DateOfBirth)
+	//проверка существует ли уже пользователь
+	exists, err := s.repo.ExistsUserByEmail(user.Email)
+	if err != nil {
+		return 0, fmt.Errorf("could not check if user exists: %w", err)
+	}
+	if exists {
+		return 0, fmt.Errorf("user already exists")
+	}
+
+	_, err = time.Parse("2006-01-02", user.DateOfBirth)
 	if err != nil {
 		return 0, fmt.Errorf("invalid date format. Use YYYY-MM-DD")
 	}

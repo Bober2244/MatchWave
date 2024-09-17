@@ -31,6 +31,16 @@ func (r *AuthPostgres) GetUser(email, password string) (MatchWave.User, error) {
 	return user, err
 }
 
+func (r *AuthPostgres) ExistsUserByEmail(email string) (bool, error) {
+	var exists bool
+	query := fmt.Sprintf("SELECT EXISTS(SELECT 1 FROM %s WHERE email=$1)", usersTable)
+	err := r.db.Get(&exists, query, email)
+	if err != nil {
+		return false, err
+	}
+	return exists, nil
+}
+
 func (r *AuthPostgres) GetUserByVerificationCode(code string) (MatchWave.User, error) {
 	var user MatchWave.User
 	query := fmt.Sprintf("SELECT id, email, name, password_hash, date_of_birth, verification_code, verification_code_expires_at, is_verified FROM %s WHERE verification_code=$1", usersTable)
@@ -41,7 +51,6 @@ func (r *AuthPostgres) GetUserByVerificationCode(code string) (MatchWave.User, e
 func (r *AuthPostgres) UpdateUserVerificationStatus(userId int, isVerified bool) error {
 	query := fmt.Sprintf("UPDATE %s SET is_verified=$1 WHERE id=$2", usersTable)
 	_, err := r.db.Exec(query, isVerified, userId)
-
 	return err
 }
 
