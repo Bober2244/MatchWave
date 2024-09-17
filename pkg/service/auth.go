@@ -7,13 +7,17 @@ import (
 	"errors"
 	"fmt"
 	"github.com/golang-jwt/jwt"
+	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
+	"math/rand"
+	"os"
 	"time"
 )
 
 const (
-	salt       = "daskljdsadas"
-	signingKey = "fhjalsdh#ljakh42312LA12"
-	tokenTTL   = time.Hour * 12
+	tokenTTL = time.Hour * 12
+	MINN     = 100
+	MAXX     = 999
 )
 
 type tokenClaims struct {
@@ -35,8 +39,46 @@ func (s *AuthService) CreateUser(user MatchWave.User) (int, error) {
 		return 0, fmt.Errorf("invalid date format. Use YYYY-MM-DD")
 	}
 
+	confirmationCode := generateConfirmationCode()
+
+	err = SendConfirmationEmail(user.Email, confirmationCode)
+	if err != nil {
+		return 0, fmt.Errorf("error sending confirmation email")
+	}
+
+	user.VerificationCode = fmt.Sprintf("%d", confirmationCode)
+	user.VerificationCodeExpiresAt = time.Now().Add(5 * time.Minute) // Время на верификацию кодом с почты
+	user.IsVerified = false
 	user.Password = generatePasswordHash(user.Password)
-	return s.repo.CreateUser(user)
+	userId, err := s.repo.CreateUser(user)
+	if err != nil {
+		return 0, err
+	}
+
+	return userId, nil
+}
+
+func (s *AuthService) VerifyUser(code string) error {
+	user, err := s.repo.GetUserByVerificationCode(code)
+	if err != nil {
+		return fmt.Errorf("verification code is invalid: %w", err)
+	}
+
+	if time.Now().After(user.VerificationCodeExpiresAt) {
+		return errors.New("verification code has expired")
+	}
+
+	err = s.repo.UpdateUserVerificationStatus(user.Id, true)
+	if err != nil {
+		return fmt.Errorf("could not update verification status: %w", err)
+	}
+
+	err = s.repo.ClearVerificationCode(user.Id)
+	if err != nil {
+		return fmt.Errorf("could not clear verification code: %w", err)
+	}
+
+	return nil
 }
 
 func (s *AuthService) GenerateToken(email, password string) (string, error) {
@@ -52,7 +94,7 @@ func (s *AuthService) GenerateToken(email, password string) (string, error) {
 		},
 		user.Id,
 	})
-	return token.SignedString([]byte(signingKey))
+	return token.SignedString([]byte(os.Getenv("SIGNING_KEY")))
 }
 
 func (s *AuthService) ParseToken(accessToken string) (int, error) {
@@ -60,7 +102,7 @@ func (s *AuthService) ParseToken(accessToken string) (int, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
 		}
-		return []byte(signingKey), nil
+		return []byte(os.Getenv("SIGNING_KEY")), nil
 	})
 	if err != nil {
 		return 0, err
@@ -76,5 +118,13 @@ func generatePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
 
-	return fmt.Sprintf("%x", hash.Sum([]byte(salt)))
+	if err := godotenv.Load(); err != nil {
+		logrus.Fatalf("Error loading .env file: %s", err.Error())
+	}
+
+	return fmt.Sprintf("%x", hash.Sum([]byte(os.Getenv("SALT"))))
+}
+
+func generateConfirmationCode() int {
+	return rand.Intn(MAXX-MINN) + MINN
 }

@@ -18,6 +18,7 @@ func (h *Handler) signUp(c *gin.Context) { // регистрация
 		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"id": id,
 	})
@@ -42,5 +43,27 @@ func (h *Handler) signIn(c *gin.Context) { // аутентификация(ав�
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"token": token,
+	})
+}
+
+type verifyInput struct {
+	VerificationCode string `json:"verification_code" binding:"required"`
+}
+
+func (h *Handler) verifyEmail(c *gin.Context) {
+	var input verifyInput
+	if err := c.BindJSON(&input); err != nil {
+		NewErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	err := h.services.Authorization.VerifyUser(input.VerificationCode)
+	if err != nil {
+		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Email successfully verified.",
 	})
 }
