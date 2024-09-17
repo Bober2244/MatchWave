@@ -86,7 +86,9 @@ func (s *AuthService) GenerateToken(email, password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-
+	if !user.IsVerified {
+		return "", fmt.Errorf("user is not verified")
+	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(tokenTTL).Unix(),

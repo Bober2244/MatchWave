@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Фикс .gitignore" />
+    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Фикс .gitignore 2.0">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/service/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/auth.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +120,8 @@
     <MESSAGE value="Сделалю базовую регистрацию" />
     <MESSAGE value="Сделал верификацию аккаунта при регистрации с помощью отправки кода на почту" />
     <MESSAGE value="Фикс .gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Фикс .gitignore" />
+    <MESSAGE value="Фикс .gitignore 2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Фикс .gitignore 2.0" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

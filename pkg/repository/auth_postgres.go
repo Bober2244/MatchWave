@@ -26,7 +26,7 @@ func (r *AuthPostgres) CreateUser(user MatchWave.User) (int, error) {
 
 func (r *AuthPostgres) GetUser(email, password string) (MatchWave.User, error) {
 	var user MatchWave.User
-	query := fmt.Sprintf("SELECT id FROM %s WHERE email=$1 AND password_hash=$2", usersTable)
+	query := fmt.Sprintf("SELECT id, is_verified FROM %s WHERE email=$1 AND password_hash=$2", usersTable)
 	err := r.db.Get(&user, query, email, password)
 	return user, err
 }
