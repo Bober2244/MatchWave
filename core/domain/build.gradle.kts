@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "dev.bober.auth"
+    namespace = "dev.bober.domain"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -31,40 +30,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
 
-    //Core
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.runtime.android)
-
-    //Compose and material
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.material3)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.material)
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-
-    //Navigation
-    implementation(libs.androidx.navigation.compose)
-
-    //Testing
     testImplementation(libs.junit)
-    debugImplementation(libs.androidx.ui.tooling)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    //Koin
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-
-    //Core modules
-    implementation(projects.core.utils)
 }

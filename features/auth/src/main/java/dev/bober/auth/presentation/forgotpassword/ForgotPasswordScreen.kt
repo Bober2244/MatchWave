@@ -1,4 +1,4 @@
-package dev.bober.auth.forgotpassword
+package dev.bober.auth.presentation.forgotpassword
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

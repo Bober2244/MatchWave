@@ -1,4 +1,4 @@
-package dev.bober.auth.authstart
+package dev.bober.auth.presentation.authstart
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -31,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,6 +67,7 @@ fun AuthScreen(
                     contentDescription = null,
                 )
             },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         )
         var passwordVisibility by rememberSaveable { mutableStateOf(false) }
 
@@ -105,7 +108,7 @@ fun AuthScreen(
                 //TODO:
             },
         ) {
-            Text("Sign")
+            Text(stringResource(R.string.sign_in_button_text))
         }
         Text(
             text = stringResource(R.string.forgot_password_text),
