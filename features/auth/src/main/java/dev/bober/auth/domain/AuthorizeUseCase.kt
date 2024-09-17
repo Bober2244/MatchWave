@@ -8,6 +8,6 @@ class AuthorizeUseCase(
     private val authRepository: AuthRepository
 ) {
     operator fun invoke(email: String, password: String): Flow<Resource<Unit>> {
-        return authRepository.auth(email, password)
+        return authRepository.login(email, password)
     }
 }

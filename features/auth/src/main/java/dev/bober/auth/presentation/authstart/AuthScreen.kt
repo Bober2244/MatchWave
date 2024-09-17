@@ -38,17 +38,21 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.bober.auth.R
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthScreen(
     modifier: Modifier = Modifier,
+    viewModel: AuthScreenViewModel = koinViewModel()
 ) {
+
     var emailText by rememberSaveable { mutableStateOf("") }
     var passwordText by rememberSaveable { mutableStateOf("") }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         OutlinedTextField(
             value = emailText,
@@ -105,7 +109,8 @@ fun AuthScreen(
         )
         Button(
             onClick = {
-                //TODO:
+                //TODO: Надо еще доделать логику
+                viewModel.login(emailText, passwordText)
             },
         ) {
             Text(stringResource(R.string.sign_in_button_text))

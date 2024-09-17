@@ -67,4 +67,8 @@ dependencies {
 
     //Core modules
     implementation(projects.core.utils)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
