@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dev.bober.auth.presentation.authstart.AuthScreen
+import dev.bober.auth.presentation.registration.RegistrationScreen
 import dev.bober.matchwave.ui.theme.MatchWaveTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
-                    AuthScreen(modifier = Modifier.padding(innerPadding))
+                    //тут AuthScreen
+                    RegistrationScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
