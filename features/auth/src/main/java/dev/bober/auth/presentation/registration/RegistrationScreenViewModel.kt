@@ -2,16 +2,20 @@ package dev.bober.auth.presentation.registration
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dev.bober.auth.data.repository.AuthRepository
-import dev.bober.auth.domain.RegisterUseCase
+import dev.bober.auth.domain.RegistrationUseCase
+import kotlinx.coroutines.launch
 
 class RegistrationScreenViewModel(
     private val authRepository: AuthRepository,
-    private val registerUseCase: RegisterUseCase
+    private val registrationUseCase: RegistrationUseCase
 ) : ViewModel() {
 
     fun register(email: String, name: String, password: String, birthday: String) {
-        registerUseCase(email, name, password, birthday)
-        Log.i("RegistrationScreenViewModel", "Registration view model")
+        viewModelScope.launch {
+            registrationUseCase(email, name, password, birthday)
+            Log.i("RegistrationScreenViewModel", "Registration view model")
+        }
     }
 }

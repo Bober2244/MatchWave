@@ -47,10 +47,16 @@ fun AuthScreen(
     ) {
         EmailOutlinedTextField(
             email = emailText,
+            onEmailChange = {
+                emailText = it
+            }
         )
 
         PasswordOutlinedTextField(
             password = passwordText,
+            onPasswordChanged = {
+                passwordText = it
+            }
         )
 
         Button(

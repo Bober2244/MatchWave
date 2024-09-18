@@ -24,7 +24,7 @@ class AuthRepositoryImpl(
         password: String,
         birthday: String,
     ): Flow<Resource<Unit>> = flow {
-        //emit(Resource.Loading())
+        emit(Resource.Loading())
         api.signUp(
             RegisterUserDto(
                 email = email,

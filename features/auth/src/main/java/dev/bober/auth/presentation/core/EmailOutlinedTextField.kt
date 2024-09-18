@@ -23,14 +23,12 @@ import dev.bober.auth.R
 @Composable
 fun EmailOutlinedTextField(
     email: String,
-    modifier: Modifier = Modifier
+    onEmailChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    var emailText by rememberSaveable { mutableStateOf(email) }
     OutlinedTextField(
-        value = emailText,
-        onValueChange = {
-            emailText = it
-        },
+        value = email,
+        onValueChange = onEmailChange,
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth(),

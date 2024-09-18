@@ -37,12 +37,21 @@ fun RegistrationScreen(
     ) {
         EmailOutlinedTextField(
             email = emailText,
+            onEmailChange = {
+                emailText = it
+            }
         )
         PasswordOutlinedTextField(
             password = passwordText,
+            onPasswordChanged = {
+                passwordText = it
+            }
         )
         PasswordOutlinedTextField(
             password = passwordRepeatText,
+            onPasswordChanged = {
+                passwordRepeatText = it
+            },
             labelText = stringResource(R.string.repeat_password_hint_text)
         )
         Button(
@@ -50,7 +59,7 @@ fun RegistrationScreen(
                 //TODO: Надо еще доделать логику
                 viewModel.register(
                     email = emailText,
-                    name = "",
+                    name = "Сергей",
                     password = passwordText,
                     birthday = "2004-08-31"
                 )

@@ -25,18 +25,16 @@ import dev.bober.auth.R
 @Composable
 fun PasswordOutlinedTextField(
     password: String,
+    onPasswordChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
     labelText: String = stringResource(R.string.password_hint_text),
 ) {
 
-    var passwordText by rememberSaveable { mutableStateOf(password) }
     var passwordVisibility by rememberSaveable { mutableStateOf(false) }
 
     OutlinedTextField(
-        value = passwordText,
-        onValueChange = {
-            passwordText = it
-        },
+        value = password,
+        onValueChange = onPasswordChanged,
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .fillMaxWidth(),
