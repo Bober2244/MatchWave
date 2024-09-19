@@ -3,10 +3,10 @@ package dev.bober.auth.di
 import dev.bober.auth.data.remote.AuthApi
 import dev.bober.auth.data.repository.AuthRepository
 import dev.bober.auth.data.repositoryImpl.AuthRepositoryImpl
-import dev.bober.auth.domain.AuthorizeUseCase
+import dev.bober.auth.domain.LoginUseCase
 import dev.bober.auth.domain.RegistrationUseCase
 import dev.bober.auth.domain.ValidationEmailUseCase
-import dev.bober.auth.presentation.authstart.AuthScreenViewModel
+import dev.bober.auth.presentation.authstart.LoginScreenViewModel
 import dev.bober.auth.presentation.registration.RegistrationScreenViewModel
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -20,12 +20,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val authModule = module {
     //ViewModels
-    viewModel { RegistrationScreenViewModel(get(), get()) }
-    viewModel { AuthScreenViewModel(get(), get()) }
+    viewModel { RegistrationScreenViewModel(get()) }
+    viewModel { LoginScreenViewModel(get()) }
     //Repositories
     singleOf(::AuthRepositoryImpl) { bind<AuthRepository>() }
     //UseCases
-    singleOf(::AuthorizeUseCase)
+    singleOf(::LoginUseCase)
     singleOf(::RegistrationUseCase)
     singleOf(::ValidationEmailUseCase)
 }

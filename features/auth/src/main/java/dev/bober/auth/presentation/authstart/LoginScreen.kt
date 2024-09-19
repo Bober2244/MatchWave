@@ -32,9 +32,9 @@ import dev.bober.auth.presentation.core.PasswordOutlinedTextField
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun AuthScreen(
+fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: AuthScreenViewModel = koinViewModel()
+    viewModel: LoginScreenViewModel = koinViewModel()
 ) {
 
     var emailText by rememberSaveable { mutableStateOf("") }
@@ -127,7 +127,7 @@ fun ButtonWithLink(
 @Composable
 @Preview(showBackground = true, heightDp = 700, widthDp = 350)
 fun AuthScreenPreview() {
-    AuthScreen()
+    LoginScreen()
 }
 
 @Composable

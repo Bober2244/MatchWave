@@ -8,14 +8,12 @@ import dev.bober.auth.domain.RegistrationUseCase
 import kotlinx.coroutines.launch
 
 class RegistrationScreenViewModel(
-    private val authRepository: AuthRepository,
     private val registrationUseCase: RegistrationUseCase
 ) : ViewModel() {
 
     fun register(email: String, name: String, password: String, birthday: String) {
         viewModelScope.launch {
             registrationUseCase(email, name, password, birthday)
-            Log.i("RegistrationScreenViewModel", "Registration view model")
         }
     }
 }

@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import dev.bober.auth.presentation.authstart.AuthScreen
-import dev.bober.auth.presentation.registration.RegistrationScreen
+import dev.bober.auth.presentation.registration.AddBirthday
+import dev.bober.auth.presentation.registration.SelectBirthday
 import dev.bober.matchwave.ui.theme.MatchWaveTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +27,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                 ) { innerPadding ->
                     //тут AuthScreen
-                    RegistrationScreen(modifier = Modifier.padding(innerPadding))
+                    AddBirthday(
+                        datePickerState = remember { mutableStateOf(false) },
+                        modifier = Modifier.padding(innerPadding),
+                    )
                 }
             }
         }
