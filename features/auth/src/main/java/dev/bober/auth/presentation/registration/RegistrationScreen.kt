@@ -1,6 +1,5 @@
 package dev.bober.auth.presentation.registration
 
-import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,14 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DatePickerFormatter
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -27,15 +24,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import dev.bober.auth.R
 import dev.bober.auth.presentation.core.EmailOutlinedTextField
@@ -46,6 +40,7 @@ import java.util.Locale
 
 @Composable
 fun RegistrationScreen(
+    onRegistrationClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegistrationScreenViewModel = koinViewModel()
 ) {
@@ -86,6 +81,8 @@ fun RegistrationScreen(
                     password = passwordText,
                     birthday = "2004-08-31"
                 )
+                //TODO: Доделать логику
+                onRegistrationClick()
             }
         ) {
             Text(stringResource(R.string.sign_up_button_text))
@@ -95,6 +92,7 @@ fun RegistrationScreen(
 
 @Composable
 fun AddName(
+    onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
     nameState : MutableState<String> = rememberSaveable { mutableStateOf("") }
 ) {
@@ -116,12 +114,19 @@ fun AddName(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
+        ElevatedButton(
+            onClick = onNextClick,
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text(stringResource(R.string.next_button_text))
+        }
         Spacer(modifier = Modifier.height(200.dp))
     }
 }
 
 @Composable
 fun AddBirthday(
+    onNextClick: () -> Unit,
     datePickerState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
     ) {
@@ -160,6 +165,12 @@ fun AddBirthday(
             //TODO(При enabled = true область нажатия очень маленькая)
             enabled = false,
         )
+        ElevatedButton(
+            onClick = onNextClick,
+            modifier = Modifier.padding(top = 16.dp)
+        ) {
+            Text(stringResource(R.string.next_button_text))
+        }
         Spacer(modifier = Modifier.height(200.dp))
     }
 }
@@ -204,19 +215,24 @@ fun converter(millis : Long) : String {
 @Preview(showBackground = true, heightDp = 700, widthDp = 350)
 @Composable
 private fun RegistrationScreenPreview() {
-    RegistrationScreen()
+    RegistrationScreen(
+        onRegistrationClick = {},
+    )
 }
 
 @Preview(showBackground = true, heightDp = 100)
 @Composable
 private fun AddNamePreview() {
-    AddName()
+    AddName(
+        onNextClick = {}
+    )
 }
 
 @Preview(showBackground = true, heightDp = 300)
 @Composable
 private fun AddBirthdayPreview() {
     AddBirthday(
+        onNextClick = {},
         datePickerState = rememberSaveable { mutableStateOf(false) }
     )
 }

@@ -12,4 +12,5 @@
     <string name="select_date_button_text">Выбрать</string>
     <string name="cancel_date_button_text">Назад</string>
     <string name="birthday_hint_text">День рождения</string>
+    <string name="next_button_text">Дальше</string>
 </resources>
