@@ -11,6 +11,11 @@ class RegistrationScreenViewModel(
     private val registrationUseCase: RegistrationUseCase
 ) : ViewModel() {
 
+    var email : String = ""
+    var password : String = ""
+    var name : String = ""
+    var birthday : String = ""
+
     fun register(email: String, name: String, password: String, birthday: String) {
         viewModelScope.launch {
             registrationUseCase(email, name, password, birthday)

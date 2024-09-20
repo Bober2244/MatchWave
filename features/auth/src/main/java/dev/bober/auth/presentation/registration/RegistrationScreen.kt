@@ -40,7 +40,7 @@ import java.util.Locale
 
 @Composable
 fun RegistrationScreen(
-    onRegistrationClick: () -> Unit,
+    onRegistrationClick: (email: String, password: String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegistrationScreenViewModel = koinViewModel()
 ) {
@@ -75,14 +75,13 @@ fun RegistrationScreen(
         )
         Button(
             onClick = {
-                viewModel.register(
-                    email = emailText,
-                    name = "Сергей",
-                    password = passwordText,
-                    birthday = "2004-08-31"
-                )
+                viewModel.email = emailText
+                viewModel.password = passwordText
                 //TODO: Доделать логику
-                onRegistrationClick()
+                onRegistrationClick(
+                    emailText,
+                    passwordText,
+                )
             }
         ) {
             Text(stringResource(R.string.sign_up_button_text))
@@ -91,10 +90,11 @@ fun RegistrationScreen(
 }
 
 @Composable
-fun AddName(
-    onNextClick: () -> Unit,
+fun AddNameScreen(
+    onNextClick: (email : String, password : String, name: String) -> Unit,
     modifier: Modifier = Modifier,
-    nameState : MutableState<String> = rememberSaveable { mutableStateOf("") }
+    nameState: MutableState<String> = rememberSaveable { mutableStateOf("") },
+    viewModel: RegistrationScreenViewModel = koinViewModel(),
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -115,7 +115,14 @@ fun AddName(
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
         ElevatedButton(
-            onClick = onNextClick,
+            onClick = {
+                viewModel.name = nameState.value
+                onNextClick(
+                    viewModel.email,
+                    viewModel.password,
+                    nameState.value
+                )
+            },
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text(stringResource(R.string.next_button_text))
@@ -125,11 +132,12 @@ fun AddName(
 }
 
 @Composable
-fun AddBirthday(
-    onNextClick: () -> Unit,
+fun AddBirthdayScreen(
+    onNextClick: (email : String, password : String, name : String, birthday : String) -> Unit,
     datePickerState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
-    ) {
+    viewModel: RegistrationScreenViewModel = koinViewModel(),
+) {
     var birthdayText by rememberSaveable { mutableStateOf("") }
 
     if (datePickerState.value) {
@@ -166,7 +174,22 @@ fun AddBirthday(
             enabled = false,
         )
         ElevatedButton(
-            onClick = onNextClick,
+            onClick = {
+                viewModel.birthday = birthdayText
+
+                viewModel.register(
+                    email = viewModel.email,
+                    password = viewModel.password,
+                    name = viewModel.name,
+                    birthday = birthdayText
+                )
+                onNextClick(
+                    viewModel.email,
+                    viewModel.password,
+                    viewModel.name,
+                    birthdayText
+                )
+            },
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text(stringResource(R.string.next_button_text))
@@ -208,33 +231,8 @@ fun SelectBirthday(
     }
 }
 
-fun converter(millis : Long) : String {
+fun converter(millis: Long): String {
     return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(millis))
-}
-
-@Preview(showBackground = true, heightDp = 700, widthDp = 350)
-@Composable
-private fun RegistrationScreenPreview() {
-    RegistrationScreen(
-        onRegistrationClick = {},
-    )
-}
-
-@Preview(showBackground = true, heightDp = 100)
-@Composable
-private fun AddNamePreview() {
-    AddName(
-        onNextClick = {}
-    )
-}
-
-@Preview(showBackground = true, heightDp = 300)
-@Composable
-private fun AddBirthdayPreview() {
-    AddBirthday(
-        onNextClick = {},
-        datePickerState = rememberSaveable { mutableStateOf(false) }
-    )
 }
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 400)
