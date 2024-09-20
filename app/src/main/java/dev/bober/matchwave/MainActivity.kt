@@ -39,18 +39,35 @@ class MainActivity : ComponentActivity() {
                         composable<RegistrationScreen> {
                             RegistrationScreen(
                                 modifier = Modifier.padding(innerPadding),
-                                onRegistrationClick = { navController.navigate(route = AddName) }
+                                onRegistrationClick = { //user ->
+                                    navController.navigate(
+                                        route = AddName(
+                                            user.email,
+                                            user.password
+                                        )
+                                    )
+                                }
                             )
                         }
                         composable<AddName> {
                             AddName(
-                                onNextClick = { navController.navigate(route = AddBirthday) },
+                                onNextClick = { //user ->
+                                    navController.navigate(
+                                        route = AddBirthday(
+                                            user.email,
+                                            user.password,
+                                            user.name
+                                        )
+                                    )
+                                },
                                 modifier = Modifier.padding(innerPadding),
                             )
                         }
                         composable<AddBirthday> {
                             AddBirthday(
-                                onNextClick = { navController.navigate(route = AddBirthday) },
+                                onNextClick = {
+                                    navController.navigate(route = AddBirthday)
+                                },
                                 modifier = Modifier.padding(innerPadding),
                                 datePickerState = remember { mutableStateOf(false) },
                             )

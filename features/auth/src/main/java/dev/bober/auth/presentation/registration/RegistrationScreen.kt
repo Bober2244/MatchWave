@@ -94,7 +94,7 @@ fun RegistrationScreen(
 fun AddName(
     onNextClick: () -> Unit,
     modifier: Modifier = Modifier,
-    nameState : MutableState<String> = rememberSaveable { mutableStateOf("") }
+    nameState: MutableState<String> = rememberSaveable { mutableStateOf("") },
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -129,7 +129,8 @@ fun AddBirthday(
     onNextClick: () -> Unit,
     datePickerState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
-    ) {
+    viewModel: RegistrationScreenViewModel = koinViewModel(),
+) {
     var birthdayText by rememberSaveable { mutableStateOf("") }
 
     if (datePickerState.value) {
@@ -166,7 +167,16 @@ fun AddBirthday(
             enabled = false,
         )
         ElevatedButton(
-            onClick = onNextClick,
+            onClick = {
+                viewModel.register(
+                    email = "",
+                    password = "",
+                    name = "",
+                    birthday = birthdayText
+                    )
+                onNextClick()
+                onNextClick()
+            },
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text(stringResource(R.string.next_button_text))
@@ -208,7 +218,7 @@ fun SelectBirthday(
     }
 }
 
-fun converter(millis : Long) : String {
+fun converter(millis: Long): String {
     return SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date(millis))
 }
 

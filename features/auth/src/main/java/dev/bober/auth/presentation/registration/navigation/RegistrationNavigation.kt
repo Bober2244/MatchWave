@@ -6,7 +6,14 @@ import kotlinx.serialization.Serializable
 object RegistrationScreen
 
 @Serializable
-object AddName
+data class AddName(
+    val email: String,
+    val password: String,
+    )
 
 @Serializable
-object AddBirthday
+data class AddBirthday(
+    val email: String,
+    val password: String,
+    val name : String,
+)
