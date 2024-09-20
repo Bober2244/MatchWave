@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dev.bober.auth.presentation.registration.AddBirthday
-import dev.bober.auth.presentation.registration.AddName
+import dev.bober.auth.presentation.registration.AddBirthdayScreen
+import dev.bober.auth.presentation.registration.AddNameScreen
 import dev.bober.auth.presentation.registration.RegistrationScreen
-import dev.bober.auth.presentation.registration.navigation.AddBirthday
-import dev.bober.auth.presentation.registration.navigation.AddName
-import dev.bober.auth.presentation.registration.navigation.RegistrationScreen
+import dev.bober.auth.presentation.navigation.AddBirthdayScreen
+import dev.bober.auth.presentation.navigation.AddNameScreen
+import dev.bober.auth.presentation.navigation.RegistrationScreen
 import dev.bober.matchwave.ui.theme.MatchWaveTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,41 +34,46 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = RegistrationScreen
+                        startDestination = RegistrationScreen,
+                        modifier = Modifier.padding(innerPadding),
                     ) {
                         composable<RegistrationScreen> {
                             RegistrationScreen(
-                                modifier = Modifier.padding(innerPadding),
-                                onRegistrationClick = { //user ->
+                                onRegistrationClick = { email, password ->
                                     navController.navigate(
-                                        route = AddName(
-                                            user.email,
-                                            user.password
+                                        route = AddNameScreen(
+                                            email = email,
+                                            password = password
                                         )
                                     )
                                 }
                             )
                         }
-                        composable<AddName> {
-                            AddName(
-                                onNextClick = { //user ->
+                        composable<AddNameScreen> {
+                            AddNameScreen(
+                                onNextClick = { email, password, name ->
                                     navController.navigate(
-                                        route = AddBirthday(
-                                            user.email,
-                                            user.password,
-                                            user.name
+                                        route = AddBirthdayScreen(
+                                            name = name,
+                                            email = email,
+                                            password = password
                                         )
                                     )
                                 },
-                                modifier = Modifier.padding(innerPadding),
                             )
                         }
-                        composable<AddBirthday> {
-                            AddBirthday(
-                                onNextClick = {
-                                    navController.navigate(route = AddBirthday)
+                        composable<AddBirthdayScreen> {
+                            AddBirthdayScreen(
+                                onNextClick = { email, password, name, birthday ->
+                                    navController.navigate(
+                                        //TODO: Тут другой route
+                                        route = AddBirthdayScreen(
+                                            email = email,
+                                            password = password,
+                                            name = name,
+                                        )
+                                    )
                                 },
-                                modifier = Modifier.padding(innerPadding),
                                 datePickerState = remember { mutableStateOf(false) },
                             )
                         }

@@ -1,4 +1,4 @@
-package dev.bober.auth.presentation.registration.navigation
+package dev.bober.auth.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
@@ -6,14 +6,17 @@ import kotlinx.serialization.Serializable
 object RegistrationScreen
 
 @Serializable
-data class AddName(
-    val email: String,
-    val password: String,
-    )
+object LoginScreen
 
 @Serializable
-data class AddBirthday(
+data class AddNameScreen(
     val email: String,
     val password: String,
-    val name : String,
+)
+
+@Serializable
+data class AddBirthdayScreen(
+    val email: String,
+    val password: String,
+    val name: String,
 )
