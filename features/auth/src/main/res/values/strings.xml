@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="login_with_google">Sign in with google</string>
-    <string name="login_with_vk">Sign in with vk</string>
-    <string name="forgot_text">Forgot your password?</string>
+    <string name="login_with_google">Авторизоваться с Google</string>
+    <string name="login_with_vk">Авторизоваться с VK</string>
+    <string name="forgot_password_text">Забыли пароль?</string>
     <string name="email_hint_text">Email</string>
-    <string name="password_hint_text">Password</string>
+    <string name="password_hint_text">Пароль</string>
+    <string name="repeat_password_hint_text">Повторите пароль</string>
+    <string name="sign_in_button_text">Войти</string>
+    <string name="sign_up_button_text">Зарегистрироваться</string>
+    <string name="name_hint_text">Как вас зовут?</string>
+    <string name="select_date_button_text">Выбрать</string>
+    <string name="cancel_date_button_text">Назад</string>
+    <string name="birthday_hint_text">День рождения</string>
+    <string name="next_button_text">Дальше</string>
 </resources>
