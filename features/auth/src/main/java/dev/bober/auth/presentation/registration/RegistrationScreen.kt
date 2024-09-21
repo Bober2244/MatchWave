@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ElevatedButton
@@ -42,7 +41,7 @@ import java.util.Locale
 fun RegistrationScreen(
     onRegistrationClick: (email: String, password: String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: RegistrationScreenViewModel = koinViewModel()
+    viewModel: RegistrationViewModel = koinViewModel()
 ) {
 
     var emailText by rememberSaveable { mutableStateOf("") }
@@ -92,10 +91,10 @@ fun RegistrationScreen(
 
 @Composable
 fun AddNameScreen(
-    onNextClick: (email : String, password : String, name: String) -> Unit,
+    onNextClick: (name: String) -> Unit,
     modifier: Modifier = Modifier,
     nameState: MutableState<String> = rememberSaveable { mutableStateOf("") },
-    viewModel: RegistrationScreenViewModel = koinViewModel(),
+    viewModel: RegistrationViewModel = koinViewModel(),
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -120,11 +119,9 @@ fun AddNameScreen(
                 viewModel.name = nameState.value
                 onNextClick(
                     viewModel.email,
-                    viewModel.password,
-                    nameState.value
                 )
             },
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier.padding(top = 16.dp),
         ) {
             Text(stringResource(R.string.next_button_text))
         }
@@ -134,10 +131,10 @@ fun AddNameScreen(
 
 @Composable
 fun AddBirthdayScreen(
-    onNextClick: (email : String, password : String, name : String, birthday : String) -> Unit,
+    onNextClick: (birthday : String) -> Unit,
     datePickerState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
-    viewModel: RegistrationScreenViewModel = koinViewModel(),
+    viewModel: RegistrationViewModel = koinViewModel(),
 ) {
     var birthdayText by rememberSaveable { mutableStateOf("") }
 
@@ -185,9 +182,6 @@ fun AddBirthdayScreen(
                     birthday = birthdayText
                 )
                 onNextClick(
-                    viewModel.email,
-                    viewModel.password,
-                    viewModel.name,
                     birthdayText
                 )
             },

@@ -1,21 +1,19 @@
 package dev.bober.auth.presentation.navigation
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import dev.bober.auth.presentation.login.LoginScreen
 import dev.bober.auth.presentation.registration.AddBirthdayScreen
 import dev.bober.auth.presentation.registration.AddNameScreen
 import dev.bober.auth.presentation.registration.RegistrationScreen
+import dev.bober.auth.presentation.requestcode.RequestCodeScreen
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.nullable
 
 //Route for nested graph
 @Serializable
@@ -27,6 +25,9 @@ object LoginScreen
 
 @Serializable
 object RegistrationScreen
+
+@Serializable
+object RequestCodeScreen
 
 @Serializable
 data class AddNameScreen(
@@ -64,29 +65,28 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
                 }
             )
         }
-        composable<AddNameScreen> {
+        composable<AddNameScreen> { entry ->
+            val addNameScreen = entry.toRoute<AddNameScreen>()
             AddNameScreen(
-                onNextClick = { email, password, name ->
+                onNextClick = { name ->
                     navController.navigate(
                         route = AddBirthdayScreen(
                             name = name,
-                            email = email,
-                            password = password
+                            email = addNameScreen.email,
+                            password = addNameScreen.password
                         )
                     )
                 },
             )
         }
-        composable<AddBirthdayScreen> {
+        composable<RequestCodeScreen> {
+            RequestCodeScreen()
+        }
+        composable<AddBirthdayScreen> { entry ->
             AddBirthdayScreen(
-                onNextClick = { email, password, name, birthday ->
+                onNextClick = { birthday -> //TODO: Тут конец регистрации, возможно убрать нужно birthday
                     navController.navigate(
-                        //TODO: Тут конец регистрации и совсем другой route
-                        route = AddBirthdayScreen(
-                            email = email,
-                            password = password,
-                            name = name,
-                        )
+                        route = RequestCodeScreen
                     )
                 },
                 datePickerState = remember { mutableStateOf(false) },

@@ -2,7 +2,7 @@ package dev.bober.auth.presentation.forgotpassword
 
 import androidx.lifecycle.ViewModel
 
-class ForgotPasswordScreenViewModel(
+class ForgotPasswordViewModel(
 
 ) : ViewModel() {
 

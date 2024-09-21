@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import dev.bober.auth.presentation.navigation.AuthGraph
-import dev.bober.auth.presentation.navigation.LoginScreen
 import dev.bober.auth.presentation.navigation.authGraph
 import dev.bober.matchwave.ui.theme.MatchWaveTheme
 
