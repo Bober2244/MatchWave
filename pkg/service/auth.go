@@ -11,6 +11,8 @@ import (
 	"github.com/sirupsen/logrus"
 	"math/rand"
 	"os"
+	"regexp"
+	"strings"
 	"time"
 )
 
@@ -44,8 +46,9 @@ func (s *AuthService) CreateUser(user MatchWave.User) (int, error) {
 	}
 
 	confirmationCode := generateConfirmationCode()
+	provider, err := getEmailProvider(user.Email)
 
-	err = SendConfirmationEmail(user.Email, confirmationCode)
+	err = SendConfirmationEmail(provider, user.Email, confirmationCode)
 	if err != nil {
 		return 0, fmt.Errorf("error sending confirmation email")
 	}
@@ -133,4 +136,18 @@ func generatePasswordHash(password string) string {
 
 func generateConfirmationCode() int {
 	return rand.Intn(MAXX-MINN) + MINN
+}
+
+func getEmailProvider(email string) (string, error) {
+	re := regexp.MustCompile(`@([a-zA-Z0-9.-]+)`)
+
+	matches := re.FindStringSubmatch(email)
+	if len(matches) < 2 {
+		return "", fmt.Errorf("invalid email address: %s", email)
+	}
+
+	domain := matches[1]
+	provider := strings.Split(domain, ".")[0]
+
+	return provider, nil
 }

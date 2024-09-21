@@ -4,31 +4,57 @@ import (
 	"errors"
 	"fmt"
 	"gopkg.in/gomail.v2"
-	"strconv"
 )
 
 const (
 	From = "sergeevnicolas20@gmail.com" // Заменить на имя пользователя
 	Pwd  = "rqrx wvjq nanc eolr"        // Заменить на реальный пароль(пароль приложения почты а не пароль от аккаунта)
+	Port = 587                          // Возможно нужно добавить еще порты
 )
 
-// надо будет менять smtp, port в зависимости от почты
-func makeMailer() (*gomail.Dialer, error) {
-	smtp := "smtp.gmail.com"         // Заменить на реальный SMTP адрес
-	port, err := strconv.Atoi("587") // Заменить на реальный порт
+func makeMailer(smtpAddress string) (*gomail.Dialer, error) {
+	var err error
+	var smtp string
+	switch smtpAddress {
+	case "gmail":
+		smtp = "smtp.gmail.com"
+	case "outlook":
+		smtp = "smtp.office365.com"
+	case "yahoo":
+		smtp = "smtp.mail.yahoo.com"
+	case "yandex":
+		smtp = "smtp.yandex.ru"
+	case "mail":
+		smtp = "smtp.mail.ru"
+	case "icloud":
+		smtp = "smtp.mail.me.com"
+	case "zoho":
+		smtp = "smtp.zoho.com"
+	case "protonmail":
+		smtp = "smtp.protonmail.com"
+	case "rambler":
+		smtp = "smtp.rambler.ru"
+	case "aol":
+		smtp = "smtp.aol.com"
+	case "gmx":
+		smtp = "mail.gmx.com"
+	case "fastmail":
+		smtp = "smtp.fastmail.com"
+	}
+
 	if err != nil {
 		fmt.Println("error parsing smtp port.", err)
 		return nil, err
 	}
-	if port == 0 || smtp == "" || From == "" || Pwd == "" {
+	if Port == 0 || smtp == "" || From == "" || Pwd == "" {
 		return nil, errors.New("invalid mailer parameters")
 	}
 
-	return gomail.NewDialer(smtp, port, From, Pwd), nil
+	return gomail.NewDialer(smtp, Port, From, Pwd), nil
 }
 
-func SendConfirmationEmail(recipient string, code int) error {
-	mailer, err := makeMailer()
+func SendConfirmationEmail(smtpAddress, recipient string, code int) error {
+	mailer, err := makeMailer(smtpAddress)
 	if err != nil {
 		return fmt.Errorf("can't create mailer: %v", err)
 	}

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Добавил проверку на существование пользователя при регистрации">
+    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Доработал сущность user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/service/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/000001_init.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema/000001_init.up.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/service/smtp.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/smtp.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +122,8 @@
     <MESSAGE value="Фикс .gitignore 2.0" />
     <MESSAGE value="Доработал регистрацию через почту" />
     <MESSAGE value="Добавил проверку на существование пользователя при регистрации" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил проверку на существование пользователя при регистрации" />
+    <MESSAGE value="Доработал сущность user" />
+    <option name="LAST_COMMIT_MESSAGE" value="Доработал сущность user" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

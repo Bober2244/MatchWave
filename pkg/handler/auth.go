@@ -13,6 +13,7 @@ func (h *Handler) signUp(c *gin.Context) { // регистрация
 		NewErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
+
 	id, err := h.services.Authorization.CreateUser(input)
 	if err != nil {
 		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
