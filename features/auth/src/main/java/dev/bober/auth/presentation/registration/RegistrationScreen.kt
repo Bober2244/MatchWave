@@ -73,7 +73,7 @@ fun RegistrationScreen(
             },
             labelText = stringResource(R.string.repeat_password_hint_text)
         )
-        Button(
+        ElevatedButton(
             onClick = {
                 viewModel.email = emailText
                 viewModel.password = passwordText
@@ -86,6 +86,7 @@ fun RegistrationScreen(
         ) {
             Text(stringResource(R.string.sign_up_button_text))
         }
+        Spacer(modifier = Modifier.height(215.dp))
     }
 }
 

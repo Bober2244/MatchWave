@@ -1,4 +1,4 @@
-package dev.bober.auth.presentation.authstart
+package dev.bober.auth.presentation.login
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -34,6 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    onRegisterWithEmail : () -> Unit,
     viewModel: LoginScreenViewModel = koinViewModel()
 ) {
 
@@ -62,7 +63,10 @@ fun LoginScreen(
         Button(
             onClick = {
                 //TODO: Надо еще доделать логику
-                viewModel.login(emailText, passwordText)
+                viewModel.login(
+                    email = emailText,
+                    password = passwordText
+                )
             },
         ) {
             Text(stringResource(R.string.sign_in_button_text))
@@ -96,9 +100,7 @@ fun LoginScreen(
         ButtonWithLink(
             R.drawable.visibility_24px,
             R.string.sign_up_button_text,
-            onClick = {
-                //TODO:
-            }
+            onClick = onRegisterWithEmail
         )
     }
 }
@@ -122,20 +124,4 @@ fun ButtonWithLink(
         Spacer(modifier = modifier.padding(start = 4.dp))
         Text(stringResource(text))
     }
-}
-
-@Composable
-@Preview(showBackground = true, heightDp = 700, widthDp = 350)
-fun AuthScreenPreview() {
-    LoginScreen()
-}
-
-@Composable
-@Preview
-fun ButtonWithLinkPreview() {
-    ButtonWithLink(
-        R.drawable.ic_google,
-        R.string.login_with_google,
-        {}
-    )
 }

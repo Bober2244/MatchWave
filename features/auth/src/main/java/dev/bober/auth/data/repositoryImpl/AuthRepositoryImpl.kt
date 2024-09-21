@@ -15,7 +15,15 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
     override fun login(email: String, password: String): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading())
-        api.signIn(LoginUserDto(email, password))
+        api.signIn(
+            LoginUserDto(
+                email = email,
+                password = password,
+            )
+        ).fold(
+            onSuccess = { emit(Resource.Success(it)) },
+            onFailure = { emit(Resource.Error(it)) }
+        )
     }
 
     override fun register(
@@ -36,8 +44,6 @@ class AuthRepositoryImpl(
             onSuccess = { emit(Resource.Success(it)) },
             onFailure = { emit(Resource.Error(it)) }
         )
-        //TODO: Не работает
-        Log.i("RegistrationRepository", "Registration repository")
     }
 
     override suspend fun deleteAuth() {
