@@ -6,7 +6,7 @@ import dev.bober.auth.data.repositoryImpl.AuthRepositoryImpl
 import dev.bober.auth.domain.LoginUseCase
 import dev.bober.auth.domain.RegistrationUseCase
 import dev.bober.auth.domain.ValidationEmailUseCase
-import dev.bober.auth.presentation.authstart.LoginScreenViewModel
+import dev.bober.auth.presentation.login.LoginScreenViewModel
 import dev.bober.auth.presentation.registration.RegistrationScreenViewModel
 import okhttp3.Cache
 import okhttp3.OkHttpClient
