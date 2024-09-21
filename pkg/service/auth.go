@@ -43,11 +43,6 @@ func (s *AuthService) CreateUser(user MatchWave.User) (int, error) {
 		return 0, fmt.Errorf("user already exists")
 	}
 
-	_, err = time.Parse("2006-01-02", user.DateOfBirth)
-	if err != nil {
-		return 0, fmt.Errorf("invalid date format. Use YYYY-MM-DD")
-	}
-
 	confirmationCode := generateConfirmationCode()
 
 	err = SendConfirmationEmail(user.Email, confirmationCode)
