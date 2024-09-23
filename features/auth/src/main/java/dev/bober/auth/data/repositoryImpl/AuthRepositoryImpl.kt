@@ -36,9 +36,7 @@ class AuthRepositoryImpl(
         api.signUp(
             RegisterUserDto(
                 email = email,
-                name = name,
                 password = password,
-                birthday = birthday,
             )
         ).fold(
             onSuccess = { emit(Resource.Success(it)) },

@@ -118,7 +118,7 @@ fun AddNameScreen(
             onClick = {
                 viewModel.name = nameState.value
                 onNextClick(
-                    viewModel.email,
+                    viewModel.name,
                 )
             },
             modifier = Modifier.padding(top = 16.dp),

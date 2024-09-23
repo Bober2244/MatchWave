@@ -13,7 +13,6 @@ import dev.bober.auth.presentation.registration.AddNameScreen
 import dev.bober.auth.presentation.registration.RegistrationScreen
 import dev.bober.auth.presentation.requestcode.RequestCodeScreen
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.nullable
 
 //Route for nested graph
 @Serializable
@@ -21,43 +20,46 @@ object AuthGraph
 
 //Routes inside nested graph
 @Serializable
-object LoginScreen
+object LoginRoute
 
 @Serializable
-object RegistrationScreen
+object RegistrationRoute
 
 @Serializable
-object RequestCodeScreen
-
-@Serializable
-data class AddNameScreen(
+data class RequestCodeRoute(
     val email: String,
     val password: String,
 )
 
 @Serializable
-data class AddBirthdayScreen(
+data class AddNameRoute(
+    val email: String,
+    val password: String,
+)
+
+@Serializable
+data class AddBirthdayRoute(
     val email: String,
     val password: String,
     val name: String,
 )
 
 fun NavGraphBuilder.authGraph(navController: NavController) {
-    navigation<AuthGraph>(startDestination = LoginScreen){
-        composable<LoginScreen> {
+    navigation<AuthGraph>(startDestination = LoginRoute) {
+        composable<LoginRoute> {
             LoginScreen(
                 onRegisterWithEmail = {
                     navController.navigate(
-                        route = RegistrationScreen
+                        route = RegistrationRoute
                     )
                 }
             )
         }
-        composable<RegistrationScreen> {
+        composable<RegistrationRoute> {
             RegistrationScreen(
                 onRegistrationClick = { email, password ->
                     navController.navigate(
-                        route = AddNameScreen(
+                        route = AddNameRoute(
                             email = email,
                             password = password
                         )
@@ -65,28 +67,32 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
                 }
             )
         }
-        composable<AddNameScreen> { entry ->
-            val addNameScreen = entry.toRoute<AddNameScreen>()
+        composable<AddNameRoute> {
+            val addNameRoute = it.toRoute<AddNameRoute>()
             AddNameScreen(
                 onNextClick = { name ->
                     navController.navigate(
-                        route = AddBirthdayScreen(
+                        route = AddBirthdayRoute(
                             name = name,
-                            email = addNameScreen.email,
-                            password = addNameScreen.password
+                            email = addNameRoute.email,
+                            password = addNameRoute.password
                         )
                     )
                 },
             )
         }
-        composable<RequestCodeScreen> {
+        composable<RequestCodeRoute> {
             RequestCodeScreen()
         }
-        composable<AddBirthdayScreen> { entry ->
+        composable<AddBirthdayRoute> {
+            val addBirthdayRoute = it.toRoute<AddBirthdayRoute>()
             AddBirthdayScreen(
                 onNextClick = { birthday -> //TODO: Тут конец регистрации, возможно убрать нужно birthday
                     navController.navigate(
-                        route = RequestCodeScreen
+                        route = RequestCodeRoute(
+                            email = addBirthdayRoute.email,
+                            password = addBirthdayRoute.password,
+                        )
                     )
                 },
                 datePickerState = remember { mutableStateOf(false) },
