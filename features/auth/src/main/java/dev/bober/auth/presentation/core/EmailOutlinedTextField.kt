@@ -25,6 +25,7 @@ fun EmailOutlinedTextField(
     email: String,
     onEmailChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    isError : Boolean = false,
 ) {
     OutlinedTextField(
         value = email,
@@ -42,5 +43,6 @@ fun EmailOutlinedTextField(
             )
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        isError = isError,
     )
 }

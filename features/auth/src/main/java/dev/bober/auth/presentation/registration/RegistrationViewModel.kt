@@ -19,4 +19,8 @@ class RegistrationViewModel(
             registrationUseCase(email, name, password, birthday)
         }
     }
+
+    fun checkPasswords(password : String, repeatedPassword : String) : Boolean {
+        return password == repeatedPassword
+    }
 }

@@ -3,9 +3,8 @@ package dev.bober.auth.domain
 import android.util.Log
 import dev.bober.auth.data.repository.AuthRepository
 import dev.bober.utils.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 
 class RegistrationUseCase(
     private val authRepository: AuthRepository
@@ -15,7 +14,7 @@ class RegistrationUseCase(
             when(res){
                 is Resource.Error -> throw Exception("Error in UseCase", res.error)
                 is Resource.Loading -> Log.i("UseCaseLoading", "Loading in UseCase")
-                is Resource.Success -> Log.i("UseCaseSuccess", "Success in UseCase")
+                is Resource.Success -> res.data
             }
         }.collect()
     }

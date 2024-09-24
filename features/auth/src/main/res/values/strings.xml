@@ -14,4 +14,5 @@
     <string name="birthday_hint_text">День рождения</string>
     <string name="next_button_text">Дальше</string>
     <string name="code_text_input_hint">Введите код</string>
+    <string name="passwords_not_match_error_text">Пароли не совпадают</string>
 </resources>

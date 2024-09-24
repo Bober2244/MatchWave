@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.toRoute
@@ -26,10 +27,7 @@ object LoginRoute
 object RegistrationRoute
 
 @Serializable
-data class RequestCodeRoute(
-    val email: String,
-    val password: String,
-)
+object RequestCodeRoute
 
 @Serializable
 data class AddNameRoute(
@@ -85,14 +83,10 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
             RequestCodeScreen()
         }
         composable<AddBirthdayRoute> {
-            val addBirthdayRoute = it.toRoute<AddBirthdayRoute>()
             AddBirthdayScreen(
-                onNextClick = { birthday -> //TODO: Тут конец регистрации, возможно убрать нужно birthday
+                onNextClick = { //TODO: Тут конец регистрации
                     navController.navigate(
-                        route = RequestCodeRoute(
-                            email = addBirthdayRoute.email,
-                            password = addBirthdayRoute.password,
-                        )
+                        route = RequestCodeRoute
                     )
                 },
                 datePickerState = remember { mutableStateOf(false) },

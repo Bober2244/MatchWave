@@ -31,7 +31,7 @@ class AuthRepositoryImpl(
         name: String,
         password: String,
         birthday: String,
-    ): Flow<Resource<Unit>> = flow {
+    ): Flow<Resource<String>> = flow {
         emit(Resource.Loading())
         api.signUp(
             RegisterUserDto(
@@ -39,7 +39,7 @@ class AuthRepositoryImpl(
                 password = password,
             )
         ).fold(
-            onSuccess = { emit(Resource.Success(it)) },
+            onSuccess = { emit(Resource.Success(it.code)) },
             onFailure = { emit(Resource.Error(it)) }
         )
     }

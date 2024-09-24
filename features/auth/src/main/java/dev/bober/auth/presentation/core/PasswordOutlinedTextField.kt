@@ -28,8 +28,9 @@ fun PasswordOutlinedTextField(
     onPasswordChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
     labelText: String = stringResource(R.string.password_hint_text),
+    isError: Boolean = false,
+    supportingText: @Composable() (() -> Unit)? = null,
 ) {
-
     var passwordVisibility by rememberSaveable { mutableStateOf(false) }
 
     OutlinedTextField(
@@ -60,6 +61,8 @@ fun PasswordOutlinedTextField(
                     contentDescription = null
                 )
             }
-        }
+        },
+        isError = isError,
+        supportingText = supportingText
     )
 }

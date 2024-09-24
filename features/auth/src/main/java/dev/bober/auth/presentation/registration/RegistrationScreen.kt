@@ -15,6 +15,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -47,6 +48,7 @@ fun RegistrationScreen(
     var emailText by rememberSaveable { mutableStateOf("") }
     var passwordText by rememberSaveable { mutableStateOf("") }
     var passwordRepeatText by rememberSaveable { mutableStateOf("") }
+    var isErrorField by rememberSaveable { mutableStateOf(false) }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -70,17 +72,31 @@ fun RegistrationScreen(
             onPasswordChanged = {
                 passwordRepeatText = it
             },
-            labelText = stringResource(R.string.repeat_password_hint_text)
+            labelText = stringResource(R.string.repeat_password_hint_text),
+            isError = isErrorField,
+            supportingText = {
+                if (isErrorField) {
+                    Text(
+                        text = stringResource(R.string.passwords_not_match_error_text),
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
         )
         ElevatedButton(
             onClick = {
                 viewModel.email = emailText
                 viewModel.password = passwordText
                 //TODO: Доделать логику
-                onRegistrationClick(
-                    emailText,
-                    passwordText,
-                )
+                if (viewModel.checkPasswords(passwordText, passwordRepeatText)) {
+                    onRegistrationClick(
+                        emailText,
+                        passwordText,
+                    )
+                    isErrorField = false
+                } else {
+                    isErrorField = true
+                }
             }
         ) {
             Text(stringResource(R.string.sign_up_button_text))
@@ -131,7 +147,7 @@ fun AddNameScreen(
 
 @Composable
 fun AddBirthdayScreen(
-    onNextClick: (birthday : String) -> Unit,
+    onNextClick: () -> Unit,
     datePickerState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
     viewModel: RegistrationViewModel = koinViewModel(),
@@ -181,9 +197,7 @@ fun AddBirthdayScreen(
                     name = viewModel.name,
                     birthday = birthdayText
                 )
-                onNextClick(
-                    birthdayText
-                )
+                onNextClick()
             },
             modifier = Modifier.padding(top = 16.dp)
         ) {
