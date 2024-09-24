@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Доработал сущность user">
+    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Сделал отправку письма на почту для разных почт">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/service/smtp.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/smtp.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -123,9 +125,21 @@
     <MESSAGE value="Доработал регистрацию через почту" />
     <MESSAGE value="Добавил проверку на существование пользователя при регистрации" />
     <MESSAGE value="Доработал сущность user" />
-    <option name="LAST_COMMIT_MESSAGE" value="Доработал сущность user" />
+    <MESSAGE value="Сделал отправку письма на почту для разных почт" />
+    <option name="LAST_COMMIT_MESSAGE" value="Сделал отправку письма на почту для разных почт" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/handler/auth.go</url>
+          <line>8</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
