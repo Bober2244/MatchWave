@@ -1,6 +1,5 @@
 package dev.bober.auth.data.repositoryImpl
 
-import android.util.Log
 import dev.bober.auth.data.model.AuthUser
 import dev.bober.auth.data.remote.AuthApi
 import dev.bober.auth.data.remote.dto.LoginUserDto

@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin.Companion.kotlinNpmResolutionManager
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -28,7 +26,6 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            isTestCoverageEnabled = true
             isPseudoLocalesEnabled = true
         }
     }
