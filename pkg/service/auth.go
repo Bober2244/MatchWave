@@ -53,9 +53,9 @@ func (s *AuthService) CreateUser(user MatchWave.User) (int, error) {
 		return 0, fmt.Errorf("error sending confirmation email")
 	}
 
-	user.VerificationCode = fmt.Sprintf("%d", confirmationCode)
-	user.VerificationCodeExpiresAt = time.Now().Add(5 * time.Minute) // Время на верификацию кодом с почты
-	user.IsVerified = false
+	user.Verification.VerificationCode = fmt.Sprintf("%d", confirmationCode)
+	user.Verification.VerificationCodeExpiresAt = time.Now().Add(5 * time.Minute) // Время на верификацию кодом с почты
+	user.Verification.IsVerified = false
 	user.Password = generatePasswordHash(user.Password)
 	userId, err := s.repo.CreateUser(user)
 	if err != nil {
@@ -71,7 +71,7 @@ func (s *AuthService) VerifyUser(code string) error {
 		return fmt.Errorf("verification code is invalid: %w", err)
 	}
 
-	if time.Now().After(user.VerificationCodeExpiresAt) {
+	if time.Now().After(user.Verification.VerificationCodeExpiresAt) {
 		return errors.New("verification code has expired")
 	}
 
@@ -93,7 +93,7 @@ func (s *AuthService) GenerateToken(email, password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	if !user.IsVerified {
+	if !user.Verification.IsVerified {
 		return "", fmt.Errorf("user is not verified")
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &tokenClaims{

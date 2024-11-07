@@ -16,19 +16,38 @@ func NewAuthPostgres(db *sqlx.DB) *AuthPostgres {
 
 func (r *AuthPostgres) CreateUser(user MatchWave.User) (int, error) {
 	var id int
-	query := fmt.Sprintf("INSERT INTO %s (email, password_hash, verification_code, verification_code_expires_at, is_verified) values ($1, $2, $3, $4, $5) RETURNING id", usersTable)
-	row := r.db.QueryRow(query, user.Email, user.Password, user.VerificationCode, user.VerificationCodeExpiresAt, user.IsVerified)
+	query := fmt.Sprintf("INSERT INTO %s (email, password_hash) VALUES ($1, $2) RETURNING id", usersTable)
+	row := r.db.QueryRow(query, user.Email, user.Password)
 	if err := row.Scan(&id); err != nil {
 		return 0, err
 	}
+
+	verificationQuery := fmt.Sprintf("INSERT INTO %s (user_id, verification_code, verification_code_expires_at, is_verified) VALUES ($1, $2, $3, $4)", verificationsTable)
+	_, err := r.db.Exec(verificationQuery, id, user.Verification.VerificationCode, user.Verification.VerificationCodeExpiresAt, user.Verification.IsVerified)
+	if err != nil {
+		return 0, err
+	}
+
 	return id, nil
 }
 
 func (r *AuthPostgres) GetUser(email, password string) (MatchWave.User, error) {
 	var user MatchWave.User
-	query := fmt.Sprintf("SELECT id, is_verified FROM %s WHERE email=$1 AND password_hash=$2", usersTable)
+	query := fmt.Sprintf("SELECT id, email FROM %s WHERE email=$1 AND password_hash=$2", usersTable)
 	err := r.db.Get(&user, query, email, password)
-	return user, err
+	if err != nil {
+		return user, err
+	}
+
+	var verification MatchWave.Verification
+	verificationQuery := fmt.Sprintf("SELECT verification_code_expires_at, is_verified FROM %s WHERE user_id=$1", verificationsTable)
+	err = r.db.Get(&verification, verificationQuery, user.Id)
+	if err != nil {
+		return user, err
+	}
+
+	user.Verification = verification
+	return user, nil
 }
 
 func (r *AuthPostgres) ExistsUserByEmail(email string) (bool, error) {
@@ -43,19 +62,32 @@ func (r *AuthPostgres) ExistsUserByEmail(email string) (bool, error) {
 
 func (r *AuthPostgres) GetUserByVerificationCode(code string) (MatchWave.User, error) {
 	var user MatchWave.User
-	query := fmt.Sprintf("SELECT id, email, password_hash, verification_code, verification_code_expires_at, is_verified FROM %s WHERE verification_code=$1", usersTable)
+	query := fmt.Sprintf("SELECT u.id, u.email, u.password_hash FROM %s u INNER JOIN %s v ON u.id = v.user_id WHERE v.verification_code=$1", usersTable, verificationsTable)
 	err := r.db.Get(&user, query, code)
-	return user, err
+	if err != nil {
+		return user, err
+	}
+
+	// Fetch verification details
+	var verification MatchWave.Verification
+	verificationQuery := fmt.Sprintf("SELECT verification_code, verification_code_expires_at, is_verified FROM %s WHERE user_id=$1", verificationsTable)
+	err = r.db.Get(&verification, verificationQuery, user.Id)
+	if err != nil {
+		return user, err
+	}
+
+	user.Verification = verification
+	return user, nil
 }
 
 func (r *AuthPostgres) UpdateUserVerificationStatus(userId int, isVerified bool) error {
-	query := fmt.Sprintf("UPDATE %s SET is_verified=$1 WHERE id=$2", usersTable)
+	query := fmt.Sprintf("UPDATE %s SET is_verified=$1 WHERE user_id=$2", verificationsTable)
 	_, err := r.db.Exec(query, isVerified, userId)
 	return err
 }
 
 func (r *AuthPostgres) ClearVerificationCode(userId int) error {
-	query := fmt.Sprintf("UPDATE %s SET verification_code=NULL WHERE id=$1", usersTable)
+	query := fmt.Sprintf("UPDATE %s SET verification_code=NULL WHERE user_id=$1", verificationsTable)
 	_, err := r.db.Exec(query, userId)
 	return err
 }
