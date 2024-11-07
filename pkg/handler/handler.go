@@ -21,12 +21,15 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		auth.POST("/sign-up", h.signUp)
 		auth.POST("/sign-in", h.signIn)
 		auth.POST("verify-email", h.verifyEmail)
+		auth.POST("logout", h.logout)
 	}
 	ping := router.Group("/ping")
+	ping.Use(h.userIdentity)
 	{
 		ping.GET("", func(c *gin.Context) {
 			c.JSON(200, gin.H{"message": "pong"})
 		})
 	}
+
 	return router
 }

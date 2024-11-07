@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Докер настроил для запуска">
-      <change afterPath="$PROJECT_DIR$/verification.go" afterDir="false" />
+    <list default="true" id="2a478f08-3c90-4b4d-b1bd-d984abdaea1f" name="Changes" comment="Вынес логику для верификации в отдельную сущность">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/handler/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handler/response.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/repository/auth_postgres.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/repository/postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/repository/postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/handler/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handler/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/handler/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handler/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/handler/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/handler/middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/service/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/000001_init.down.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema/000001_init.down.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/000001_init.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema/000001_init.up.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/service/service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +129,8 @@
     <MESSAGE value="Доработал сущность user" />
     <MESSAGE value="Сделал отправку письма на почту для разных почт" />
     <MESSAGE value="Докер настроил для запуска" />
-    <option name="LAST_COMMIT_MESSAGE" value="Докер настроил для запуска" />
+    <MESSAGE value="Вынес логику для верификации в отдельную сущность" />
+    <option name="LAST_COMMIT_MESSAGE" value="Вынес логику для верификации в отдельную сущность" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

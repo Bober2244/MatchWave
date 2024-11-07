@@ -10,17 +10,12 @@ type Authorization interface {
 	GenerateToken(email, password string) (string, error)
 	ParseToken(token string) (int, error)
 	VerifyUser(code string) error
+	InvalidateToken(token string) error
+	IsTokenBlacklisted(token string) bool
 }
-
-type Couples interface {
-}
-
-type Person interface{}
 
 type Service struct {
 	Authorization
-	Couples
-	Person
 }
 
 func NewService(repos *repository.Repository) *Service {

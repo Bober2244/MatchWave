@@ -13,6 +13,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -28,11 +29,29 @@ type tokenClaims struct {
 }
 
 type AuthService struct {
-	repo repository.Authorization
+	repo           repository.Authorization
+	tokenBlacklist map[string]bool
+	mu             sync.Mutex
 }
 
 func NewAuthService(repo repository.Authorization) *AuthService {
-	return &AuthService{repo: repo}
+	return &AuthService{
+		repo:           repo,
+		tokenBlacklist: make(map[string]bool),
+	}
+}
+
+func (s *AuthService) InvalidateToken(token string) error {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.tokenBlacklist[token] = true
+	return nil
+}
+
+func (s *AuthService) IsTokenBlacklisted(token string) bool {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.tokenBlacklist[token]
 }
 
 func (s *AuthService) CreateUser(user MatchWave.User) (int, error) {
