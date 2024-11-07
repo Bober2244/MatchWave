@@ -14,15 +14,8 @@ type Authorization interface {
 	ClearVerificationCode(userId int) error
 }
 
-type Couples interface {
-}
-
-type Person interface{}
-
 type Repository struct {
 	Authorization
-	Couples
-	Person
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
